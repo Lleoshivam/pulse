@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center my-4">Create a new Account in 2 minutes</h1>
+      <div>{{error}}</div>
+      <form class="my-4" action="{{url_for('add_user')}}" method="post">
+        <label>Enter Username:</label>
+        <input class="form-control" name="user_name" required />
+        <br />
+        <label>Enter Password</label>
+        <input class="form-control" type="password" name="password" required />
+        <br />
+        <label>Re Enter Password</label>
+        <input
+          class="form-control"
+          type="password"
+          name="re_password"
+          required
+        />
+        <br />
+        <input class="btn btn-primary" type="submit" value="Create Account" />
+        <br />
+      </form>
+      <a class="btn btn-secondary" href="{{ url_for('index')}}">Go back</a>
+    </div>
+  </body>
+</html>

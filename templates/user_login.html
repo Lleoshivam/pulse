@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>User Login</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center my-4">User Login</h1>
+      <div>{{error}}</div>
+      {% if request.args.get('error') %}
+      <div class="alert alert-danger">{{ request.args.get('error') }}</div>
+      {% endif %}
+      <form class="my-4" action="{{url_for('user_login')}}" method="post">
+        <div class="form-group">
+          <label for="username">Enter Username:</label>
+          <input type="text" class="form-control" name="user_name" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Enter Password:</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <a href="{{ url_for('index')}}" class="btn btn-secondary">Go back</a>
+    </div>
+  </body>
+</html>

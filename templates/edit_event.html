@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Event</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Admin Panel</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('admin') }}">DashBoard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add_venue') }}"
+              >Add New Venue</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add_event') }}"
+              >Add New Event</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <h1>Edit Event</h1>
+    <form action="{{ url_for('edit_event', id=event.id) }}" method="post">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="{{ event.name }}"
+        required
+      />
+      <label for="rating">Rating:</label>
+      <input type="number" name="rating" value="{{ event.rating }}" required />
+      <label for="tags">Tags:</label>
+      <select name="tags" required>
+        <option value="Action">Music</option>
+        <option value="Drama">Coding</option>
+        <option value="Comedy">Comedy</option>
+      </select>
+      <label for="timing">Timing: </label>
+      <input type="text" name="timing" value="{{ event.timing }}" required />
+      <label for="venue">Venue:</label>
+      <select name="venue" required>
+        {% for venue in venues %} {% if venue.id == event.venue_id %}
+        <option value="{{ venue.id }}" selected>{{ venue.name }}</option>
+        {% else %}
+        <option value="{{ venue.id }}">{{ venue.name }}</option>
+        {% endif %} {% endfor %}
+      </select>
+      <input type="submit" value="Submit" />
+    </form>
+    <a href="{{ url_for('admin') }}">Back to admin</a>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Index</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center mt-5">Book Events in 2 Minutes</h1>
+      <div class="row justify-content-center mt-5">
+        <div class="col-sm-4">
+          <a
+            href="{{ url_for('admin_login')}}"
+            class="btn btn-primary btn-lg btn-block"
+            >Admin Login</a
+          >
+        </div>
+        <div class="col-sm-4">
+          <a
+            href="{{ url_for('user_login') }}"
+            class="btn btn-primary btn-lg btn-block"
+            >User Login</a
+          >
+        </div>
+      </div>
+      <div class="row justify-content-center mt-5">
+        <div class="col-sm-4">
+          <a
+            href="{{ url_for('register') }}"
+            class="btn btn-outline-primary btn-lg btn-block"
+            >Don't have an account? Create now</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

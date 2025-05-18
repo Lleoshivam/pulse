@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book Ticket</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Book Ticket</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('history')}}"
+              >Booking History</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user')}}">Search</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      {% if request.args.get('name') %}
+      <div class="alert alert-success">
+        Hi {{ request.args.get('name') }}, Enjoy these events near you !!
+      </div>
+      {% endif %} {% if request.args.get('msg') %}
+      <div class="alert alert-danger">{{ request.args.get('msg') }}</div>
+      {% endif %} {% if events %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Events</th>
+            <th>Venue</th>
+            <th>Place</th>
+            <th>Rating</th>
+            <th>Tags</th>
+            <th>Timing</th>
+            <th>Book Ticket</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+          <tr>
+            <td>{{ event.date }}</td>
+            <td>{{ event.name }}</td>
+            <td>{{ event.venue.name }}</td>
+            <td>{{ event.venue.place }}</td>
+            <td>{{ event.rating }}</td>
+            <td>{{ event.tags }}</td>
+            <td>{{ event.timing }}</td>
+            <td>
+              <a
+                class="btn btn-primary"
+                href="{{ url_for('book', id=event.id) }}"
+                >Book Ticket</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No Events found for the selected date and tags.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

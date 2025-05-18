@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Management Admin Panel</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Admin Panel</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('admin') }}">DashBoard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add_venue') }}"
+              >Add New Venue</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add_event') }}"
+              >Add New Event</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-2">
+      <h1>Venues</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Venue</th>
+            <th>Events</th>
+            <th>Place</th>
+            <th>Capacity</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for venue in venues %}
+          <tr>
+            <td>{{ venue.name }}</td>
+            <td>
+              <ul>
+                {% for event in venue.events %}
+                <li>{{ event.name }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{ venue.place }}</td>
+            <td>{{ venue.capacity }}</td>
+
+            <td>
+              <a
+                class="btn btn-primary"
+                href="{{ url_for('edit_venue', id=venue.id) }}"
+                >Edit</a
+              >
+            </td>
+            <td>
+              <form
+                action="{{ url_for('delete_venue', id=venue.id) }}"
+                method="post"
+              >
+                <input class="btn btn-danger" type="submit" value="Delete" />
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h1>Events</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Events</th>
+            <th>Venue</th>
+            <th>Total Seats</th>
+            <th>Booked Seats</th>
+            <th>Rating</th>
+            <th>Tags</th>
+            <th>Timing</th>
+            <th>Edit_One</th>
+            <th>Edit_ALL</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for event in events %}
+          <tr>
+            <td>{{ event.date }}</td>
+            <td>{{ event.name }}</td>
+            <td>{{ event.venue.name }}</td>
+            <td>{{ event.venue.capacity }}</td>
+            <td>
+              {{ get_total_booked_tickets(event.venue_id, event.date,
+              event.name)}}
+            </td>
+            <td>{{ event.rating }}</td>
+            <td>{{ event.tags }}</td>
+            <td>{{ event.timing }}</td>
+            <td>
+              <a
+                class="btn btn-primary"
+                href="{{ url_for('edit_event', id=event.id) }}"
+                >Edit</a
+              >
+            </td>
+            <td>
+              <a
+                class="btn btn-primary"
+                href="{{ url_for('edit_event_ratingtags', id=event.id) }}"
+                >Edit</a
+              >
+            </td>
+            <td>
+              <form
+                action="{{ url_for('delete_event', id=event.id) }}"
+                method="post"
+              >
+                <input class="btn btn-danger" type="submit" value="Delete" />
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
