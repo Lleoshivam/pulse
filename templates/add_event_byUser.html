@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Event</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Book Ticket</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('history')}}"
+              >Booking History</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user')}}">Search</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <h1>Add Events</h1>
+    <form action="{{ url_for('add_event_byUser') }}" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+      <label for="date">Date :</label>
+      <input
+        type="date"
+        id="date"
+        name="date"
+        min="2025-03-20"
+        max="2026-04-30"
+        required
+      />
+      <br />
+      <label for="rating">Rating:</label>
+      <input type="number" name="rating" required />
+      <label for="tags">Tags:</label>
+      <select name="tags" required>
+        <option value="Music">Music</option>
+        <option value="Coding">Coding</option>
+        <option value="Comedy">Comedy</option>
+      </select>
+      <label for="timing">Timing: </label>
+      <input type="text" name="timing" required />
+      <label for="venue">Venue:</label>
+      {% for venue in venues %}
+      <input
+        type="checkbox"
+        id="venue-{{ venue.id }}"
+        name="venues"
+        value="{{ venue.id }}"
+      />
+      <label for="venue-{{ venue.id }}">{{ venue.name }}</label>
+      {% endfor %}
+      <input type="submit" value="Submit" />
+    </form>
+    <a href="{{ url_for('user_dash') }}">Dashboard</a>
+  </body>
+</html>

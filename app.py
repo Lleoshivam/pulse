@@ -349,6 +349,25 @@ def add_event():
         return redirect(url_for('admin'))
     return render_template('add_event.html', venues=venues)
 
+@app.route('/add_event_byUser', methods=['GET', 'POST'])
+@login_required
+def add_event_byUser():
+
+    venues = Venue.query.all()
+    if request.method == 'POST':
+        name = request.form['name']
+        rating = request.form['rating']
+        tags = request.form['tags']
+        timing = request.form['timing']
+        date = request.form['date']
+        venues_checked = request.form.getlist('venues')
+        for venue_id in venues_checked:
+            event = Event(name=name, rating=rating, tags=tags,
+                          timing=timing, venue_id=venue_id, date=date)
+            db.session.add(event)
+        db.session.commit()
+        return redirect(url_for('user_dash'))
+    return render_template('add_event_byUser.html', venues=venues)
 
 @app.route('/edit_event/<int:id>', methods=['GET', 'POST'])
 @login_required
